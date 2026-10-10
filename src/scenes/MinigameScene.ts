@@ -23,6 +23,7 @@ export abstract class MinigameScene extends Phaser.Scene {
   private frustrationPerSecond = 0;
   private meterFill?: Phaser.GameObjects.Rectangle;
   private meterFace?: Phaser.GameObjects.Container;
+  private instructionText?: Phaser.GameObjects.Text;
 
   init(data: { problemId?: string }) {
     this.problemId = data?.problemId ?? '';
@@ -51,10 +52,20 @@ export abstract class MinigameScene extends Phaser.Scene {
     });
 
     this.add.text(16, TITLE_BAR / 2 + 3, title, { fontFamily: PIXEL_FONT, fontSize: '12px', color: hex(COLORS.cream) }).setOrigin(0, 0.5).setDepth(CHROME_DEPTH);
-    this.add
+    this.instructionText = this.add
       .text(GAME_WIDTH / 2, GAME_HEIGHT - STATUS_BAR / 2 - 1, instruction, { fontFamily: PIXEL_FONT, fontSize: '10px', color: hex(COLORS.navy) })
       .setOrigin(0.5)
       .setDepth(CHROME_DEPTH);
+  }
+
+  // Changes the line in the status bar.
+  protected setInstruction(instruction: string) {
+    this.instructionText?.setText(instruction);
+  }
+
+  // How much patience has gone, from 0 (calm) to 1 (about to refresh).
+  protected get patienceLost() {
+    return this.frustration;
   }
 
   // Draws the meter and starts it filling. It is full after `seconds`.
@@ -90,7 +101,7 @@ export abstract class MinigameScene extends Phaser.Scene {
     // The face shakes harder as patience runs out.
     this.meterFace.angle = Math.sin(this.time.now / 40) * 12 * this.frustration;
     if (this.frustration > GLITCH_FROM && Math.random() < (this.frustration - GLITCH_FROM) * 0.5) this.glitch();
-    if (this.frustration >= 1) this.refresh();
+    if (this.frustration >= 1) this.outOfPatience();
   }
 
   // One torn strip of picture, gone again a moment later.
@@ -116,7 +127,9 @@ export abstract class MinigameScene extends Phaser.Scene {
     });
   }
 
-  private refresh() {
+  // The meter is full: stamp REFRESH across the screen and start the minigame
+  // again. A minigame can replace this with its own way of failing.
+  protected outOfPatience() {
     this.finished = true;
     this.cameras.main.shake(350, 0.012);
     const stamp = this.add

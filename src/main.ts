@@ -3,6 +3,7 @@ import * as Phaser from 'phaser';
 import { COLORS, GAME_HEIGHT, GAME_WIDTH, PIXEL_FONT } from './config';
 import { CircuitScene } from './scenes/CircuitScene';
 import { PacketDeliveryScene } from './scenes/PacketDeliveryScene';
+import { CrashScene } from './scenes/CrashScene';
 import { CpuCoolingScene } from './scenes/CpuCoolingScene';
 import { CorruptedBlocksScene } from './scenes/CorruptedBlocksScene';
 import { FactoryScene } from './scenes/FactoryScene';
@@ -26,7 +27,7 @@ document.fonts.load(`16px ${PIXEL_FONT}`).finally(() => {
       autoCenter: Phaser.Scale.CENTER_BOTH,
     },
     // The first scene in the list starts automatically.
-    scene: [PreloadScene, FactoryScene, FeedHamsterScene, WakeWorkersScene, CircuitScene, CorruptedBlocksScene, PacketDeliveryScene, CpuCoolingScene, ZipFileScene, WorkshopScene],
+    scene: [PreloadScene, FactoryScene, FeedHamsterScene, WakeWorkersScene, CircuitScene, CorruptedBlocksScene, PacketDeliveryScene, CpuCoolingScene, ZipFileScene, CrashScene, WorkshopScene],
   });
   // While developing, expose the game in the browser console as `game`, and
   // add a menu for jumping straight to any minigame.

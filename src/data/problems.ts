@@ -58,5 +58,12 @@ export const PROBLEMS: Problem[] = [
     scene: 'ZipFile',
     error: { title: 'zip.exe', message: 'File too large.\ncat_video.mp4\nwill not fit.', icon: { texture: 'zip', frame: 'folderFull' } },
   },
-  { id: 'prevent-the-crash', stallAt: 99, scene: null },
+  {
+    id: 'prevent-the-crash',
+    stallAt: 99,
+    scene: 'Crash',
+    error: { title: 'system.exe', message: 'Everything is\nbreaking at\nonce!', icon: { texture: 'props', frame: 'zap' } },
+    powerOut: true,
+    crewMood: 'panic',
+  },
 ];

@@ -1,13 +1,8 @@
 import * as Phaser from 'phaser';
 import { COLORS, GAME_HEIGHT, GAME_WIDTH, PIXEL_FONT, hex } from '../config';
+import { CpuChip } from '../objects/CpuChip';
 import { SideWorker } from '../objects/SideWorker';
 import { MinigameScene } from './MinigameScene';
-
-// Temperature runs from 0 (ice cold) to 1 (melting). The needle has to stay
-// between these two marks.
-const GREEN_FROM = 0.4;
-const GREEN_TO = 0.66;
-const FROZEN_BLUE = 0x6fb7ff;
 
 const FAN_SPIN_UP = 1.5; // how fast the fan gains speed while cranked (per second)
 const FAN_SPIN_DOWN = 0.8; // how fast it loses speed when let go
@@ -29,19 +24,13 @@ const WORKLOADS = [
 const CPU = { x: 450, y: 400 };
 const FAN = { x: 930, y: 300 };
 const CRANK = { x: 930, y: 540 };
-const GAUGE_RADIUS = 70;
-const GAUGE_START = 150; // needle angle (degrees) at temperature 0 ...
-const GAUGE_SWEEP = 240; // ... and how far it swings to reach temperature 1
 
 // Minigame "cpu.exe": the processor is overheating. Hold the mouse button (or
 // Space) to crank the cooling fan, and let go to rest it. Too little fan and
 // the CPU cooks; too much and the computer freezes. Keep the needle in the
 // green while the workload keeps changing.
 export class CpuCoolingScene extends MinigameScene {
-  private hotChip!: Phaser.GameObjects.Image;
-  private coldChip!: Phaser.GameObjects.Image;
-  private steam!: Phaser.GameObjects.Image;
-  private needle!: Phaser.GameObjects.Graphics;
+  private chip!: CpuChip;
   private fan!: Phaser.GameObjects.Image;
   private crank!: Phaser.GameObjects.Image;
   private worker!: SideWorker;
@@ -79,7 +68,7 @@ export class CpuCoolingScene extends MinigameScene {
       this.goalSlots.push(this.add.image(slotsLeft + i * 40, 112, 'ui', 'blockGrey').setScale(0.36));
     }
 
-    this.buildCpu();
+    this.chip = new CpuChip(this, CPU.x, CPU.y);
     this.buildFan();
 
     const label = (size: number, colour: number) => ({ fontFamily: PIXEL_FONT, fontSize: `${size}px`, color: hex(colour), stroke: hex(COLORS.navy), strokeThickness: 6 });
@@ -94,38 +83,6 @@ export class CpuCoolingScene extends MinigameScene {
     this.startFrustration(SECONDS_BEFORE_REFRESH);
     this.cameras.main.fadeIn(250, 22, 30, 60);
     this.showWorkload();
-  }
-
-  // The chip is three pictures stacked: the normal one, a red-hot one and a
-  // blue-tinted one. Fading the top two in and out shows the temperature.
-  private buildCpu() {
-    this.add.image(CPU.x, CPU.y, 'cpu', 'chip');
-    this.coldChip = this.add.image(CPU.x, CPU.y, 'cpu', 'chip').setTint(FROZEN_BLUE).setAlpha(0);
-    this.hotChip = this.add.image(CPU.x, CPU.y, 'cpu', 'chipHot').setAlpha(0);
-    this.steam = this.add.image(CPU.x, CPU.y - 196, 'cpu', 'steam').setAlpha(0);
-    this.tweens.add({ targets: this.steam, y: this.steam.y - 10, scaleY: 1.15, duration: 380, yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
-
-    // The gauge face is blank in the art; the coloured zones and needle are drawn here.
-    const angleAt = (temperature: number) => Phaser.Math.DegToRad(GAUGE_START + GAUGE_SWEEP * temperature);
-    const dial = this.add.graphics({ x: CPU.x, y: CPU.y });
-    const zones: [number, number, number][] = [
-      [0, GREEN_FROM, FROZEN_BLUE],
-      [GREEN_FROM, GREEN_TO, COLORS.green],
-      [GREEN_TO, 1, COLORS.red],
-    ];
-    for (const [from, to, colour] of zones) {
-      dial.lineStyle(18, colour).beginPath().arc(0, 0, GAUGE_RADIUS, angleAt(from), angleAt(to)).strokePath();
-    }
-    dial.lineStyle(3, COLORS.navy);
-    for (const mark of [0, GREEN_FROM, GREEN_TO, 1]) {
-      const angle = angleAt(mark);
-      dial.lineBetween(Math.cos(angle) * (GAUGE_RADIUS - 11), Math.sin(angle) * (GAUGE_RADIUS - 11), Math.cos(angle) * (GAUGE_RADIUS + 11), Math.sin(angle) * (GAUGE_RADIUS + 11));
-    }
-
-    // The needle is drawn pointing right, then simply rotated to the reading.
-    this.needle = this.add.graphics({ x: CPU.x, y: CPU.y });
-    this.needle.fillStyle(COLORS.navy).fillTriangle(-12, -7, -12, 7, GAUGE_RADIUS + 4, 0).fillCircle(0, 0, 11);
-    this.needle.fillStyle(COLORS.cream).fillCircle(0, 0, 4);
   }
 
   private buildFan() {
@@ -174,31 +131,25 @@ export class CpuCoolingScene extends MinigameScene {
     this.fanSpeed = Phaser.Math.Clamp(this.fanSpeed + (this.cranking ? FAN_SPIN_UP : -FAN_SPIN_DOWN) * seconds, 0, 1);
     this.temperature = Phaser.Math.Clamp(this.temperature + (this.heat - FAN_COOLING * this.fanSpeed) * seconds, 0, 1);
 
-    const inGreen = this.temperature >= GREEN_FROM && this.temperature <= GREEN_TO;
+    const inGreen = CpuChip.inGreen(this.temperature);
     if (inGreen) this.secondsInGreen += seconds;
     else this.addFrustration(OUT_OF_GREEN_PENALTY * seconds, false); // a steady drain, so no bounce
 
-    this.draw(delta, inGreen);
+    this.draw(delta);
     if (this.secondsInGreen >= SECONDS_IN_GREEN_TO_WIN) this.celebrate();
   }
 
-  private draw(delta: number, inGreen: boolean) {
-    this.needle.setAngle(GAUGE_START + GAUGE_SWEEP * this.temperature);
+  private draw(delta: number) {
+    const state = this.chip.setTemperature(this.temperature);
     this.fan.angle += this.fanSpeed * delta * 1.1;
     this.crank.angle += this.fanSpeed * delta * 0.55;
     // The worker's arm follows the crank handle round.
     this.worker.reach(40 + Math.sin(Phaser.Math.DegToRad(this.crank.angle)) * 32);
-    this.worker.setMood(this.temperature > GREEN_TO ? 'ouch' : 'run');
+    this.worker.setMood(state === 'hot' ? 'ouch' : 'run');
 
-    const tooHot = Phaser.Math.Clamp((this.temperature - GREEN_TO) / (1 - GREEN_TO), 0, 1);
-    const tooCold = Phaser.Math.Clamp((GREEN_FROM - this.temperature) / GREEN_FROM, 0, 1);
-    this.hotChip.setAlpha(tooHot);
-    this.steam.setAlpha(tooHot);
-    this.coldChip.setAlpha(tooCold * 0.85);
-
-    if (inGreen) this.statusText.setText('COOL').setColor(hex(COLORS.green));
-    else if (tooHot) this.statusText.setText('OVERHEATING!').setColor(hex(COLORS.red));
-    else this.statusText.setText('FROZEN!').setColor(hex(FROZEN_BLUE));
+    if (state === 'cool') this.statusText.setText('COOL').setColor(hex(COLORS.green));
+    else if (state === 'hot') this.statusText.setText('OVERHEATING!').setColor(hex(COLORS.red));
+    else this.statusText.setText('FROZEN!').setColor(hex(CpuChip.FROZEN_BLUE));
 
     const lit = Math.floor((this.secondsInGreen / SECONDS_IN_GREEN_TO_WIN) * GOAL_SLOTS);
     this.goalSlots.forEach((slot, i) => slot.setFrame(i < lit ? 'blockGreen' : 'blockGrey'));

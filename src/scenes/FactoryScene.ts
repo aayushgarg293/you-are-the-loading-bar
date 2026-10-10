@@ -336,8 +336,9 @@ export class FactoryScene extends Phaser.Scene {
     const limit = this.problem?.stallAt ?? 100;
     this.setProgress(Math.min(limit, this.progress + (PERCENT_PER_SECOND * delta) / 1000));
     if (this.progress >= limit) {
+      if (!this.problem) return this.downloadComplete();
       this.setRunning(false);
-      if (!this.problem?.scene) this.showToBeContinued();
+      if (!this.problem.scene) this.showBanner('TO BE CONTINUED...');
     }
   }
 
@@ -357,9 +358,23 @@ export class FactoryScene extends Phaser.Scene {
     for (const { worker, tag } of this.nameTags) tag.setPosition(worker.x, worker.y - 438 * worker.scaleY).setDepth(worker.depth);
   }
 
-  private showToBeContinued() {
+  // 100%: no problems left. Everyone celebrates. (The ending cutscene will follow from here.)
+  private downloadComplete() {
+    this.running = false;
+    for (const member of this.crew) {
+      member.setRunning(false); // ends whatever their job had planned next
+      member.stareAt = undefined;
+      if (member.worker.mood !== 'asleep') member.worker.setMood('cheer');
+    }
+    for (const block of this.droppedBlocks) block.destroy();
+    this.droppedBlocks = [];
+    this.reporter.setMood('cheer');
+    this.showBanner('DOWNLOAD COMPLETE!');
+  }
+
+  private showBanner(message: string) {
     const banner = this.add
-      .text(GAME_WIDTH / 2, 250, 'TO BE CONTINUED...', {
+      .text(GAME_WIDTH / 2, 250, message, {
         fontFamily: PIXEL_FONT,
         fontSize: '36px',
         color: hex(COLORS.cream),
