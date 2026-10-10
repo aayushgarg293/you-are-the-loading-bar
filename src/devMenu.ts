@@ -3,10 +3,10 @@ import { PROBLEMS } from './data/problems';
 // A development-only menu for jumping straight to any part of the game. It is
 // plain HTML laid over the page (not part of Phaser), built from the PROBLEMS
 // list, so a new minigame appears here as soon as it is added there.
-// Open it with the DEV tab in the top-left corner or the ` key.
+// Open it with the DEV tab in the bottom-right corner or the ` key.
 export function addDevMenu() {
   const menu = document.createElement('div');
-  menu.style.cssText = 'position:fixed;top:0;left:0;z-index:10;font:13px/1.5 monospace;color:#f6ecd2';
+  menu.style.cssText = 'position:fixed;bottom:0;right:0;z-index:10;display:flex;flex-direction:column-reverse;align-items:flex-end;font:13px/1.5 monospace;color:#f6ecd2';
 
   const tab = document.createElement('button');
   tab.textContent = 'DEV';

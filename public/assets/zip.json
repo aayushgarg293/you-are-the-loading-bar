@@ -4,20 +4,60 @@
       "frame": {
         "x": 2,
         "y": 2,
-        "w": 120,
-        "h": 164
+        "w": 180,
+        "h": 247
       },
       "rotated": false,
       "trimmed": false,
       "spriteSourceSize": {
         "x": 0,
         "y": 0,
-        "w": 120,
-        "h": 164
+        "w": 180,
+        "h": 247
       },
       "sourceSize": {
-        "w": 120,
-        "h": 164
+        "w": 180,
+        "h": 247
+      }
+    },
+    "folderZipped": {
+      "frame": {
+        "x": 184,
+        "y": 2,
+        "w": 248,
+        "h": 207
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 248,
+        "h": 207
+      },
+      "sourceSize": {
+        "w": 248,
+        "h": 207
+      }
+    },
+    "folderFull": {
+      "frame": {
+        "x": 434,
+        "y": 2,
+        "w": 280,
+        "h": 196
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 280,
+        "h": 196
+      },
+      "sourceSize": {
+        "w": 280,
+        "h": 196
       }
     }
   },
@@ -25,8 +65,8 @@
     "image": "zip.webp",
     "format": "RGBA8888",
     "size": {
-      "w": 512,
-      "h": 168
+      "w": 768,
+      "h": 251
     },
     "scale": "1"
   }

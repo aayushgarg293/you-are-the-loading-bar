@@ -52,6 +52,11 @@ export const PROBLEMS: Problem[] = [
     scene: 'CpuCooling',
     error: { title: 'cpu.exe', message: 'CPU is\noverheating!\nFan has stopped.', icon: { texture: 'cpu', frame: 'chipHot' } },
   },
-  { id: 'file-too-large', stallAt: 85, scene: null },
+  {
+    id: 'file-too-large',
+    stallAt: 85,
+    scene: 'ZipFile',
+    error: { title: 'zip.exe', message: 'File too large.\ncat_video.mp4\nwill not fit.', icon: { texture: 'zip', frame: 'folderFull' } },
+  },
   { id: 'prevent-the-crash', stallAt: 99, scene: null },
 ];

@@ -10,6 +10,7 @@ import { FeedHamsterScene } from './scenes/FeedHamsterScene';
 import { PreloadScene } from './scenes/PreloadScene';
 import { WakeWorkersScene } from './scenes/WakeWorkersScene';
 import { WorkshopScene } from './scenes/WorkshopScene';
+import { ZipFileScene } from './scenes/ZipFileScene';
 
 // Wait for the pixel font before starting, otherwise the first text drawn
 // would use a fallback font.
@@ -25,7 +26,7 @@ document.fonts.load(`16px ${PIXEL_FONT}`).finally(() => {
       autoCenter: Phaser.Scale.CENTER_BOTH,
     },
     // The first scene in the list starts automatically.
-    scene: [PreloadScene, FactoryScene, FeedHamsterScene, WakeWorkersScene, CircuitScene, CorruptedBlocksScene, PacketDeliveryScene, CpuCoolingScene, WorkshopScene],
+    scene: [PreloadScene, FactoryScene, FeedHamsterScene, WakeWorkersScene, CircuitScene, CorruptedBlocksScene, PacketDeliveryScene, CpuCoolingScene, ZipFileScene, WorkshopScene],
   });
   // While developing, expose the game in the browser console as `game`, and
   // add a menu for jumping straight to any minigame.

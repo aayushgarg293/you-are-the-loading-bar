@@ -1,7 +1,10 @@
 {
   "source": "art-source/computer/zip.png",
-  "scale": 0.4,
+  "scale": 0.6,
+  "atlasWidth": 768,
   "parts": {
-    "hourglass": { "region": [180, 392, 500, 812] }
+    "folderZipped": { "region": [122, 20, 550, 378] },
+    "folderFull":   { "region": [672, 40, 1155, 383] },
+    "hourglass":    { "region": [180, 392, 500, 812] }
   }
 }

@@ -17,7 +17,7 @@ export class PreloadScene extends Phaser.Scene {
   create() {
     // ?scene=hamster (a short name) or ?scene=FeedHamster (the scene's own key)
     // jumps straight to that scene for testing.
-    const shortcuts: Record<string, string> = { workshop: 'Workshop', hamster: 'FeedHamster', wake: 'WakeWorkers', circuit: 'Circuit', blocks: 'CorruptedBlocks', packets: 'PacketDelivery', cpu: 'CpuCooling' };
+    const shortcuts: Record<string, string> = { workshop: 'Workshop', hamster: 'FeedHamster', wake: 'WakeWorkers', circuit: 'Circuit', blocks: 'CorruptedBlocks', packets: 'PacketDelivery', cpu: 'CpuCooling', zip: 'ZipFile' };
     const wanted = debugText('scene') ?? '';
     const key = shortcuts[wanted] ?? wanted;
     this.scene.start(this.scene.manager.keys[key] ? key : 'Factory');
