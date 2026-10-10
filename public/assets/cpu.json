@@ -1,0 +1,113 @@
+{
+  "frames": {
+    "chipHot": {
+      "frame": {
+        "x": 2,
+        "y": 2,
+        "w": 342,
+        "h": 328
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 342,
+        "h": 328
+      },
+      "sourceSize": {
+        "w": 342,
+        "h": 328
+      }
+    },
+    "chip": {
+      "frame": {
+        "x": 346,
+        "y": 2,
+        "w": 343,
+        "h": 325
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 343,
+        "h": 325
+      },
+      "sourceSize": {
+        "w": 343,
+        "h": 325
+      }
+    },
+    "fan": {
+      "frame": {
+        "x": 691,
+        "y": 2,
+        "w": 247,
+        "h": 245
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 247,
+        "h": 245
+      },
+      "sourceSize": {
+        "w": 247,
+        "h": 245
+      }
+    },
+    "crank": {
+      "frame": {
+        "x": 2,
+        "y": 332,
+        "w": 204,
+        "h": 165
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 204,
+        "h": 165
+      },
+      "sourceSize": {
+        "w": 204,
+        "h": 165
+      }
+    },
+    "steam": {
+      "frame": {
+        "x": 208,
+        "y": 332,
+        "w": 222,
+        "h": 55
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 222,
+        "h": 55
+      },
+      "sourceSize": {
+        "w": 222,
+        "h": 55
+      }
+    }
+  },
+  "meta": {
+    "image": "cpu.webp",
+    "format": "RGBA8888",
+    "size": {
+      "w": 1024,
+      "h": 499
+    },
+    "scale": "1"
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "frames": {
+    "blades": {
+      "frame": {
+        "x": 2,
+        "y": 2,
+        "w": 111,
+        "h": 111
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 111,
+        "h": 111
+      },
+      "sourceSize": {
+        "w": 111,
+        "h": 111
+      }
+    }
+  },
+  "meta": {
+    "image": "fan.webp",
+    "format": "RGBA8888",
+    "size": {
+      "w": 128,
+      "h": 115
+    },
+    "scale": "1"
+  }
+}

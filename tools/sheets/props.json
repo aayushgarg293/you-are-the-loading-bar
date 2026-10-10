@@ -1,0 +1,8 @@
+{
+  "source": "art-source/minigames/props.png",
+  "scale": 0.4,
+  "parts": {
+    "clock":    { "region": [550, 70, 991, 536] },
+    "zap":      { "region": [782, 553, 1365, 964] }
+  }
+}

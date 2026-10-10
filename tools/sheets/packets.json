@@ -1,0 +1,12 @@
+{
+  "source": "art-source/computer/packets.png",
+  "scale": 0.4,
+  "parts": {
+    "cable":   { "region": [86, 240, 490, 415] },
+    "popup":   { "region": [575, 128, 995, 502] },
+    "spam":    { "region": [46, 640, 536, 957] },
+    "cookie":  { "region": [605, 596, 995, 985] },
+    "snail":   { "region": [30, 1096, 557, 1452] },
+    "sign404": { "region": [583, 1047, 998, 1465] }
+  }
+}

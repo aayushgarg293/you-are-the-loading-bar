@@ -1,0 +1,24 @@
+{
+  "source": "art-source/worker/accessories.png",
+  "scale": 0.4,
+  "parts": {
+    "moustache":   { "region": [24, 185, 378, 331] },
+    "glasses":     { "region": [398, 148, 842, 341] },
+    "toolBelt":    { "region": [843, 78, 1370, 359] },
+    "longHair":    { "region": [1375, 50, 1766, 351] },
+    "dropS":       { "region": [55, 485, 146, 619] },
+    "dropM":       { "region": [193, 447, 308, 628] },
+    "dropL":       { "region": [353, 411, 492, 638] },
+    "snoreBubble": { "region": [558, 414, 873, 646] },
+    "steamA":      { "region": [924, 394, 1165, 636] },
+    "steamB":      { "region": [1198, 439, 1396, 645] },
+    "question":    { "region": [1429, 397, 1595, 655] },
+    "exclaim":     { "region": [1629, 403, 1731, 655] },
+    "sparkleL":    { "region": [44, 643, 261, 868] },
+    "sparkleM":    { "region": [331, 678, 491, 847] },
+    "sparkleS":    { "region": [565, 711, 683, 840] },
+    "linesA":      { "region": [789, 714, 1073, 827] },
+    "linesB":      { "region": [1191, 726, 1423, 821] },
+    "linesC":      { "region": [1556, 738, 1711, 827] }
+  }
+}

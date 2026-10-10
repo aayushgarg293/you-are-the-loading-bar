@@ -1,0 +1,11 @@
+{
+  "source": "art-source/hamster/feeding.png",
+  "scale": 0.4,
+  "parts": {
+    "seed":      { "region": [75, 202, 408, 586] },
+    "seedPile":  { "region": [445, 279, 938, 591] },
+    "sack":      { "region": [940, 88, 1512, 600] },
+    "bowlEmpty": { "region": [72, 657, 740, 966] },
+    "bowlFull":  { "region": [791, 628, 1460, 966] }
+  }
+}

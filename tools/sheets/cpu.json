@@ -1,0 +1,12 @@
+{
+  "source": "art-source/computer/cpu.png",
+  "scale": 0.6,
+  "atlasWidth": 1024,
+  "parts": {
+    "chip":    { "region": [28, 168, 609, 720] },
+    "chipHot": { "region": [648, 168, 1229, 720] },
+    "steam":   { "region": [765, 68, 1148, 166] },
+    "fan":     { "region": [16, 778, 440, 1196] },
+    "crank":   { "region": [460, 852, 812, 1138] }
+  }
+}

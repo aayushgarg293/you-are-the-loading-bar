@@ -1,0 +1,93 @@
+{
+  "frames": {
+    "recycleBin": {
+      "frame": {
+        "x": 2,
+        "y": 2,
+        "w": 201,
+        "h": 231
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 201,
+        "h": 231
+      },
+      "sourceSize": {
+        "w": 201,
+        "h": 231
+      }
+    },
+    "shield": {
+      "frame": {
+        "x": 205,
+        "y": 2,
+        "w": 194,
+        "h": 224
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 194,
+        "h": 224
+      },
+      "sourceSize": {
+        "w": 194,
+        "h": 224
+      }
+    },
+    "virus": {
+      "frame": {
+        "x": 2,
+        "y": 235,
+        "w": 214,
+        "h": 210
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 214,
+        "h": 210
+      },
+      "sourceSize": {
+        "w": 214,
+        "h": 210
+      }
+    },
+    "horse": {
+      "frame": {
+        "x": 218,
+        "y": 235,
+        "w": 136,
+        "h": 128
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 136,
+        "h": 128
+      },
+      "sourceSize": {
+        "w": 136,
+        "h": 128
+      }
+    }
+  },
+  "meta": {
+    "image": "antivirus.webp",
+    "format": "RGBA8888",
+    "size": {
+      "w": 512,
+      "h": 447
+    },
+    "scale": "1"
+  }
+}

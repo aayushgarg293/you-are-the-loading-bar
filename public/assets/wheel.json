@@ -1,0 +1,73 @@
+{
+  "frames": {
+    "wheel": {
+      "frame": {
+        "x": 2,
+        "y": 2,
+        "w": 438,
+        "h": 438
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 438,
+        "h": 438
+      },
+      "sourceSize": {
+        "w": 438,
+        "h": 438
+      }
+    },
+    "stand": {
+      "frame": {
+        "x": 442,
+        "y": 2,
+        "w": 409,
+        "h": 289
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 409,
+        "h": 289
+      },
+      "sourceSize": {
+        "w": 409,
+        "h": 289
+      }
+    },
+    "generator": {
+      "frame": {
+        "x": 2,
+        "y": 442,
+        "w": 176,
+        "h": 194
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 176,
+        "h": 194
+      },
+      "sourceSize": {
+        "w": 176,
+        "h": 194
+      }
+    }
+  },
+  "meta": {
+    "image": "wheel.webp",
+    "format": "RGBA8888",
+    "size": {
+      "w": 880,
+      "h": 638
+    },
+    "scale": "1"
+  }
+}

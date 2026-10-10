@@ -1,0 +1,113 @@
+{
+  "frames": {
+    "sack": {
+      "frame": {
+        "x": 2,
+        "y": 2,
+        "w": 224,
+        "h": 198
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 224,
+        "h": 198
+      },
+      "sourceSize": {
+        "w": 224,
+        "h": 198
+      }
+    },
+    "seed": {
+      "frame": {
+        "x": 228,
+        "y": 2,
+        "w": 126,
+        "h": 146
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 126,
+        "h": 146
+      },
+      "sourceSize": {
+        "w": 126,
+        "h": 146
+      }
+    },
+    "bowlFull": {
+      "frame": {
+        "x": 2,
+        "y": 202,
+        "w": 260,
+        "h": 128
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 128
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 128
+      }
+    },
+    "seedPile": {
+      "frame": {
+        "x": 264,
+        "y": 202,
+        "w": 191,
+        "h": 118
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 191,
+        "h": 118
+      },
+      "sourceSize": {
+        "w": 191,
+        "h": 118
+      }
+    },
+    "bowlEmpty": {
+      "frame": {
+        "x": 2,
+        "y": 332,
+        "w": 260,
+        "h": 116
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 260,
+        "h": 116
+      },
+      "sourceSize": {
+        "w": 260,
+        "h": 116
+      }
+    }
+  },
+  "meta": {
+    "image": "feeding.webp",
+    "format": "RGBA8888",
+    "size": {
+      "w": 512,
+      "h": 450
+    },
+    "scale": "1"
+  }
+}

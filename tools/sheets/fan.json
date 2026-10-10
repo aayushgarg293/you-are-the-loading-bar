@@ -1,0 +1,8 @@
+{
+  "source": "art-source/factory/motherboard.png",
+  "scale": 0.7655,
+  "atlasWidth": 128,
+  "parts": {
+    "blades": { "region": [10, 315, 154, 459], "circle": true }
+  }
+}

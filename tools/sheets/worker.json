@@ -1,0 +1,15 @@
+{
+  "source": "art-source/worker/thread-parts.png",
+  "scale": 0.5,
+  "parts": {
+    "head":       { "region": [20, 10, 415, 390] },
+    "hat":        { "region": [420, 60, 830, 345] },
+    "torso":      { "region": [870, 30, 1200, 390] },
+    "armUpperL":  { "region": [75, 410, 280, 650] },
+    "forearmL":   { "region": [325, 420, 560, 657] },
+    "forearmR":   { "region": [692, 420, 925, 657] },
+    "armUpperR":  { "region": [975, 410, 1175, 650] },
+    "legL":       { "region": [320, 658, 560, 950] },
+    "legR":       { "region": [690, 658, 930, 950] }
+  }
+}

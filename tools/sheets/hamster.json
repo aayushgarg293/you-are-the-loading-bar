@@ -1,0 +1,16 @@
+{
+  "source": "art-source/hamster/parts.png",
+  "scale": 0.5,
+  "parts": {
+    "body":        { "region": [306, 29, 794, 361] },
+    "tail":        { "region": [858, 208, 972, 333] },
+    "legBackA":    { "region": [40, 397, 343, 603] },
+    "legBackB":    { "region": [397, 397, 602, 610] },
+    "legFrontA":   { "region": [665, 415, 934, 578] },
+    "legFrontB":   { "region": [977, 406, 1182, 577] },
+    "headHappy":   { "region": [232, 638, 603, 943] },
+    "headTired":   { "region": [659, 640, 1038, 942] },
+    "headAsleep":  { "region": [232, 952, 602, 1254] },
+    "headChew":    { "region": [659, 952, 1040, 1257] }
+  }
+}

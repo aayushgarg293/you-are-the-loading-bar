@@ -1,0 +1,10 @@
+{
+  "source": "art-source/hamster/wheel.png",
+  "scale": 0.6,
+  "atlasWidth": 880,
+  "parts": {
+    "wheel":     { "region": [244, 6, 993, 753] },
+    "stand":     { "region": [80, 759, 779, 1260] },
+    "generator": { "region": [836, 919, 1149, 1259] }
+  }
+}

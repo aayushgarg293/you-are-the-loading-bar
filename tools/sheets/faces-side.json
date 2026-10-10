@@ -1,0 +1,13 @@
+{
+  "source": "art-source/worker/faces-side.png",
+  "scale": 0.3,
+  "atlasWidth": 256,
+  "parts": {
+    "eyeOpen":    { "region": [145, 170, 250, 342] },
+    "eyeHappy":   { "region": [490, 185, 690, 315] },
+    "eyeWide":    { "region": [872, 90, 1080, 385] },
+    "eyeDizzy":   { "region": [1692, 112, 1894, 378] },
+    "mouthSmile": { "region": [96, 550, 306, 646] },
+    "mouthShout": { "region": [500, 475, 666, 710] }
+  }
+}

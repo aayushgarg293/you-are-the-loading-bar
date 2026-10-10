@@ -1,0 +1,10 @@
+{
+  "source": "art-source/computer/antivirus.png",
+  "scale": 0.4,
+  "parts": {
+    "virus":      { "region": [55, 50, 610, 590] },
+    "horse":      { "region": [755, 200, 1095, 520], "dropBackground": true },
+    "recycleBin": { "region": [80, 630, 605, 1220] },
+    "shield":     { "region": [695, 635, 1200, 1210] }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "source": "art-source/computer/connection.png",
+  "scale": 0.4,
+  "parts": {
+    "tile":   { "region": [40, 155, 550, 655] },
+    "router": { "region": [600, 160, 1230, 680] },
+    "port":   { "region": [360, 715, 895, 1170] }
+  }
+}

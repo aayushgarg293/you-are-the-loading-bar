@@ -1,0 +1,13 @@
+{
+  "source": "art-source/worker/thread-parts-side.png",
+  "scale": 0.37,
+  "parts": {
+    "head":     { "region": [10, 20, 468, 510] },
+    "hat":      { "region": [480, 120, 938, 442] },
+    "torso":    { "region": [962, 128, 1300, 542] },
+    "armUpper": { "region": [320, 552, 612, 758] },
+    "forearm":  { "region": [686, 585, 1024, 772] },
+    "legBack":  { "region": [330, 776, 660, 1184] },
+    "legFront": { "region": [786, 779, 1126, 1182] }
+  }
+}

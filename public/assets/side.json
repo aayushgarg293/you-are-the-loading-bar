@@ -1,0 +1,153 @@
+{
+  "frames": {
+    "head": {
+      "frame": {
+        "x": 2,
+        "y": 2,
+        "w": 166,
+        "h": 178
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 166,
+        "h": 178
+      },
+      "sourceSize": {
+        "w": 166,
+        "h": 178
+      }
+    },
+    "torso": {
+      "frame": {
+        "x": 170,
+        "y": 2,
+        "w": 121,
+        "h": 149
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 121,
+        "h": 149
+      },
+      "sourceSize": {
+        "w": 121,
+        "h": 149
+      }
+    },
+    "legBack": {
+      "frame": {
+        "x": 293,
+        "y": 2,
+        "w": 118,
+        "h": 147
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 118,
+        "h": 147
+      },
+      "sourceSize": {
+        "w": 118,
+        "h": 147
+      }
+    },
+    "legFront": {
+      "frame": {
+        "x": 2,
+        "y": 182,
+        "w": 122,
+        "h": 146
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 122,
+        "h": 146
+      },
+      "sourceSize": {
+        "w": 122,
+        "h": 146
+      }
+    },
+    "hat": {
+      "frame": {
+        "x": 126,
+        "y": 182,
+        "w": 166,
+        "h": 116
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 166,
+        "h": 116
+      },
+      "sourceSize": {
+        "w": 166,
+        "h": 116
+      }
+    },
+    "armUpper": {
+      "frame": {
+        "x": 294,
+        "y": 182,
+        "w": 105,
+        "h": 73
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 105,
+        "h": 73
+      },
+      "sourceSize": {
+        "w": 105,
+        "h": 73
+      }
+    },
+    "forearm": {
+      "frame": {
+        "x": 2,
+        "y": 330,
+        "w": 121,
+        "h": 65
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 121,
+        "h": 65
+      },
+      "sourceSize": {
+        "w": 121,
+        "h": 65
+      }
+    }
+  },
+  "meta": {
+    "image": "side.webp",
+    "format": "RGBA8888",
+    "size": {
+      "w": 512,
+      "h": 397
+    },
+    "scale": "1"
+  }
+}

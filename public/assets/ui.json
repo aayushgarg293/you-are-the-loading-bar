@@ -1,0 +1,73 @@
+{
+  "frames": {
+    "barFrame": {
+      "frame": {
+        "x": 2,
+        "y": 2,
+        "w": 1060,
+        "h": 117
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 1060,
+        "h": 117
+      },
+      "sourceSize": {
+        "w": 1060,
+        "h": 117
+      }
+    },
+    "blockGreen": {
+      "frame": {
+        "x": 2,
+        "y": 121,
+        "w": 102,
+        "h": 104
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 102,
+        "h": 104
+      },
+      "sourceSize": {
+        "w": 102,
+        "h": 104
+      }
+    },
+    "blockGrey": {
+      "frame": {
+        "x": 106,
+        "y": 121,
+        "w": 102,
+        "h": 104
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 102,
+        "h": 104
+      },
+      "sourceSize": {
+        "w": 102,
+        "h": 104
+      }
+    }
+  },
+  "meta": {
+    "image": "ui.webp",
+    "format": "RGBA8888",
+    "size": {
+      "w": 1100,
+      "h": 227
+    },
+    "scale": "1"
+  }
+}

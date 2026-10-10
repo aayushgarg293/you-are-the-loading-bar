@@ -1,0 +1,7 @@
+{
+  "source": "art-source/computer/zip.png",
+  "scale": 0.4,
+  "parts": {
+    "hourglass": { "region": [180, 392, 500, 812] }
+  }
+}

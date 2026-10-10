@@ -1,0 +1,16 @@
+{
+  "source": "art-source/worker/parts.png",
+  "scale": 0.5,
+  "parts": {
+    "eyesOpen":   { "region": [40, 980, 200, 1085] },
+    "eyesHappy":  { "region": [285, 980, 465, 1085] },
+    "eyesWide":   { "region": [530, 980, 725, 1085] },
+    "eyesAngry":  { "region": [800, 980, 950, 1085] },
+    "eyesDizzy":  { "region": [1030, 980, 1225, 1085], "linesOnly": true },
+    "mouthSmile": { "region": [50, 1100, 190, 1230] },
+    "mouthShout": { "region": [295, 1100, 455, 1230] },
+    "mouthFlat":  { "region": [560, 1100, 690, 1230] },
+    "mouthFrown": { "region": [805, 1100, 945, 1230] },
+    "mouthTongue":{ "region": [1050, 1100, 1200, 1230] }
+  }
+}

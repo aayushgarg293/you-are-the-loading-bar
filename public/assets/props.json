@@ -1,0 +1,53 @@
+{
+  "frames": {
+    "clock": {
+      "frame": {
+        "x": 2,
+        "y": 2,
+        "w": 169,
+        "h": 179
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 169,
+        "h": 179
+      },
+      "sourceSize": {
+        "w": 169,
+        "h": 179
+      }
+    },
+    "zap": {
+      "frame": {
+        "x": 173,
+        "y": 2,
+        "w": 234,
+        "h": 162
+      },
+      "rotated": false,
+      "trimmed": false,
+      "spriteSourceSize": {
+        "x": 0,
+        "y": 0,
+        "w": 234,
+        "h": 162
+      },
+      "sourceSize": {
+        "w": 234,
+        "h": 162
+      }
+    }
+  },
+  "meta": {
+    "image": "props.webp",
+    "format": "RGBA8888",
+    "size": {
+      "w": 512,
+      "h": 183
+    },
+    "scale": "1"
+  }
+}

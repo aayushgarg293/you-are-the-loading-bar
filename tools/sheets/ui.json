@@ -1,0 +1,10 @@
+{
+  "source": "art-source/ui/loading-bar.png",
+  "scale": 0.5,
+  "atlasWidth": 1100,
+  "parts": {
+    "barFrame":   { "region": [18, 114, 2155, 367] },
+    "blockGreen": { "region": [817, 430, 1040, 657] },
+    "blockGrey":  { "region": [1134, 430, 1356, 657] }
+  }
+}

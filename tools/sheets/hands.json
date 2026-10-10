@@ -1,0 +1,14 @@
+{
+  "source": "art-source/worker/hands.png",
+  "scale": 0.4,
+  "parts": {
+    "waveL":  { "region": [219, 31, 564, 351] },
+    "waveR":  { "region": [650, 31, 995, 351] },
+    "fistL":  { "region": [238, 388, 538, 650] },
+    "fistR":  { "region": [676, 388, 975, 650] },
+    "pointL": { "region": [212, 680, 573, 913] },
+    "pointR": { "region": [640, 679, 1002, 913] },
+    "thumbL": { "region": [231, 924, 541, 1233] },
+    "thumbR": { "region": [672, 925, 983, 1238] }
+  }
+}
