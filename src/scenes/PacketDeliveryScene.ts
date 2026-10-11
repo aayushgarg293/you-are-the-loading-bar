@@ -2,6 +2,7 @@ import * as Phaser from 'phaser';
 import { COLORS, GAME_HEIGHT, GAME_WIDTH, PIXEL_FONT, hex } from '../config';
 import { SideWorker } from '../objects/SideWorker';
 import { MinigameScene } from './MinigameScene';
+import { sfx } from '../audio/sound';
 
 const LANE_YS = [316, 462, 608]; // where feet touch each cable
 const RUNNER_X = 250;
@@ -127,6 +128,7 @@ export class PacketDeliveryScene extends MinigameScene {
     const lane = Phaser.Math.Clamp(this.lane + step, 0, LANE_YS.length - 1);
     if (lane === this.lane) return;
     this.lane = lane;
+    sfx.whoosh();
     this.runner.setDepth(this.depthOf(lane) + 1);
     this.tweens.add({ targets: this.runner, y: LANE_YS[lane], duration: 110, ease: 'Quad.easeOut' });
   }

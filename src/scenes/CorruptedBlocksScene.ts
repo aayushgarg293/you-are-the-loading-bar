@@ -2,6 +2,7 @@ import * as Phaser from 'phaser';
 import { COLORS, GAME_HEIGHT, GAME_WIDTH } from '../config';
 import { Worker } from '../objects/Worker';
 import { MinigameScene } from './MinigameScene';
+import { sfx } from '../audio/sound';
 
 const BELT_TOP = 357; // top of the data bus in the zoomed backdrop
 const EXIT_X = 1190;
@@ -135,6 +136,7 @@ export class CorruptedBlocksScene extends MinigameScene {
   }
 
   private throwInBin(block: Block) {
+    sfx.zap();
     const view = block.view.disableInteractive().setDepth(30);
     const binTop = BIN.y - 170;
     this.tweens.add({ targets: view, x: BIN.x, duration: 380, ease: 'Sine.easeOut' });

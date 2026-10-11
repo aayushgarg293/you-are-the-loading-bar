@@ -12,6 +12,9 @@ export const COLORS = {
   skin: 0xfcd0b0,
 };
 
+// What he thinks he is downloading. (A parody name, on purpose.)
+export const DOWNLOAD_FILE = 'taylor_drift_new_single.mp3';
+
 export const PIXEL_FONT = '"Press Start 2P"';
 
 export const hex = (color: number) => `#${color.toString(16).padStart(6, '0')}`;

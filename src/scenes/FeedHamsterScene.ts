@@ -4,6 +4,7 @@ import { debugNumber } from '../debug';
 import { HamsterWheel } from '../objects/HamsterWheel';
 import { Worker } from '../objects/Worker';
 import { MinigameScene } from './MinigameScene';
+import { sfx } from '../audio/sound';
 
 const ENERGY_PER_SEED = 13;
 const ENERGY_DRAIN_PER_SECOND = 5.5;
@@ -84,6 +85,7 @@ export class FeedHamsterScene extends MinigameScene {
     if (this.finished || this.heldSeed) return;
     this.hint?.destroy();
     this.hint = undefined;
+    sfx.pop();
     this.heldSeed = this.add.image(pointer.x, pointer.y, 'feeding', 'seed').setScale(0.42).setDepth(10);
     this.tweens.add({ targets: this.sack, scaleY: 1.05, duration: 80, yoyo: true });
   }
@@ -107,6 +109,7 @@ export class FeedHamsterScene extends MinigameScene {
 
   private feed() {
     this.hasFed = true;
+    sfx.crunch();
     this.energy = Math.min(100, this.energy + ENERGY_PER_SEED);
     this.chewingUntil = this.time.now + 380;
     this.wheel.hamster.gulp();

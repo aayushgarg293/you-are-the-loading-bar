@@ -2,6 +2,7 @@ import * as Phaser from 'phaser';
 import { COLORS, GAME_HEIGHT, GAME_WIDTH, PIXEL_FONT, hex } from '../config';
 import { Worker } from '../objects/Worker';
 import { MinigameScene } from './MinigameScene';
+import { sfx } from '../audio/sound';
 
 const PRESS_GAIN = 0.034; // how much each good key press squashes the file
 const SPRING_BACK = 0.05; // how much it swells back per second when nearly empty ...
@@ -110,6 +111,7 @@ export class ZipFileScene extends MinigameScene {
   private press(side: Side) {
     if (this.finished || side !== this.nextSide) return; // same key twice in a row: ignored
     this.nextSide = side === 'left' ? 'right' : 'left';
+    sfx.thump();
     this.highlightNextKey();
     this.compression = Math.min(1, this.compression + PRESS_GAIN);
 
@@ -134,6 +136,7 @@ export class ZipFileScene extends MinigameScene {
 
   // It is a cat video, after all.
   private meow() {
+    sfx.meow();
     const cry = this.add
       .text(FOLDER.x + Phaser.Math.Between(-120, 120), this.folderTop - 30, 'meow!', { fontFamily: PIXEL_FONT, fontSize: '14px', color: hex(COLORS.yellow), stroke: hex(COLORS.navy), strokeThickness: 6 })
       .setOrigin(0.5)

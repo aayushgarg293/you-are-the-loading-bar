@@ -2,6 +2,7 @@ import * as Phaser from 'phaser';
 import { COLORS, GAME_HEIGHT, GAME_WIDTH, PIXEL_FONT, hex } from '../config';
 import { Worker, WorkerLook } from '../objects/Worker';
 import { MinigameScene } from './MinigameScene';
+import { sfx } from '../audio/sound';
 
 const STATION_XS = [250, 430, 610, 790, 970];
 const WORKER_Y = 600;
@@ -121,6 +122,7 @@ export class WakeWorkersScene extends MinigameScene {
   private wake(station: Station, bonusAwakeTime = 0) {
     if (this.finished || !station.asleep) return;
     station.asleep = false;
+    sfx.wake();
     station.notice.setVisible(false);
     station.worker.setAlpha(1).setAngle(0);
     station.dozeAt = this.clock + this.awakeTime() + bonusAwakeTime;

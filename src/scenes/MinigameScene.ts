@@ -1,5 +1,6 @@
 import * as Phaser from 'phaser';
 import { COLORS, GAME_HEIGHT, GAME_WIDTH, PIXEL_FONT, hex } from '../config';
+import { music, sfx } from '../audio/sound';
 
 const METER_WIDTH = 420;
 const TITLE_BAR = 32;
@@ -35,6 +36,7 @@ export abstract class MinigameScene extends Phaser.Scene {
   // Frames the screen as a program window: a title bar across the top with the
   // program's name, and a status bar along the bottom saying what to do.
   protected openWindow(title: string, instruction: string) {
+    music.play('hurry');
     const frame = this.add.graphics().setDepth(CHROME_DEPTH);
     frame.fillStyle(COLORS.navy).fillRect(0, 0, GAME_WIDTH, TITLE_BAR + 4);
     frame.fillStyle(WINDOW_BLUE).fillRect(4, 4, GAME_WIDTH - 8, TITLE_BAR - 4);
@@ -90,6 +92,7 @@ export abstract class MinigameScene extends Phaser.Scene {
   // on the meter jumps, unless `bounce` is false (for a slow, steady drain).
   protected addFrustration(fraction: number, bounce = true) {
     this.frustration = Math.min(1, this.frustration + fraction);
+    if (bounce) sfx.ouch();
     if (bounce && this.meterFace) this.tweens.add({ targets: this.meterFace, scale: 1.5, duration: 90, yoyo: true });
   }
 
@@ -106,6 +109,7 @@ export abstract class MinigameScene extends Phaser.Scene {
 
   // One torn strip of picture, gone again a moment later.
   private glitch() {
+    sfx.glitch();
     const strip = this.add
       .rectangle(Phaser.Math.Between(-80, 80), Phaser.Math.Between(TITLE_BAR, GAME_HEIGHT - STATUS_BAR), GAME_WIDTH, Phaser.Math.Between(3, 16), Phaser.Utils.Array.GetRandom(GLITCH_COLOURS), 0.4)
       .setOrigin(0, 0.5)
@@ -116,6 +120,8 @@ export abstract class MinigameScene extends Phaser.Scene {
   protected win() {
     if (this.finished) return;
     this.finished = true;
+    music.stop();
+    sfx.win();
     this.cameras.main.flash(250, 74, 222, 128);
     this.time.delayedCall(1700, () => {
       this.cameras.main.fadeOut(250, 22, 30, 60);
@@ -131,6 +137,8 @@ export abstract class MinigameScene extends Phaser.Scene {
   // again. A minigame can replace this with its own way of failing.
   protected outOfPatience() {
     this.finished = true;
+    music.stop();
+    sfx.refresh();
     this.cameras.main.shake(350, 0.012);
     const stamp = this.add
       .text(GAME_WIDTH / 2, GAME_HEIGHT / 2, 'REFRESH!', {

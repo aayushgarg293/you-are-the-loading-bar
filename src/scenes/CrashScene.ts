@@ -5,6 +5,7 @@ import { HamsterWheel } from '../objects/HamsterWheel';
 import { SideWorker } from '../objects/SideWorker';
 import { Worker } from '../objects/Worker';
 import { MinigameScene } from './MinigameScene';
+import { music, sfx } from '../audio/sound';
 
 const ROUND_SECONDS = 6;
 const FAIL_PENALTY = 0.2; // patience lost for each round that is not finished in time
@@ -127,6 +128,7 @@ export class CrashScene extends MinigameScene {
   }
 
   private pass() {
+    sfx.roundPass();
     this.endRound('OK!', COLORS.green);
   }
 
@@ -166,6 +168,8 @@ export class CrashScene extends MinigameScene {
   // restart counter, and then the finale starts again.
   protected outOfPatience() {
     this.finished = true;
+    music.stop();
+    sfx.crash();
     this.clearRound();
     this.cameras.main.shake(300, 0.015);
     const white = (size: number) => ({ fontFamily: PIXEL_FONT, fontSize: `${size}px`, color: '#ffffff', lineSpacing: 12 });
@@ -217,6 +221,7 @@ export class CrashScene extends MinigameScene {
       held.destroy();
       held = undefined;
       if (!reached) return;
+      sfx.crunch();
       wheel.hamster.gulp();
       if (++fed >= 2) {
         wheel.hamster.setMood('run');
@@ -241,6 +246,7 @@ export class CrashScene extends MinigameScene {
       sleeper.wiggle += Phaser.Math.Distance.Between(pointer.x, pointer.y, pointer.prevPosition.x, pointer.prevPosition.y);
       if (sleeper.wiggle < 260) return;
       sleeper.awake = true;
+      sfx.wake();
       sleeper.worker.setAlpha(1).setMood('happy');
       if (sleepers.every((s) => s.awake)) this.pass();
     });
@@ -275,6 +281,7 @@ export class CrashScene extends MinigameScene {
     for (const tile of tiles) {
       tile.panel.on('pointerdown', () => {
         if (this.between) return;
+        sfx.turn();
         tile.view.setAngle(++tile.turn * 90);
         if (redraw()) this.pass();
       });
@@ -292,6 +299,7 @@ export class CrashScene extends MinigameScene {
       this.tweens.add({ targets: virus, ...spot(), duration: Phaser.Math.Between(700, 1100), yoyo: true, repeat: -1, ease: 'Sine.easeInOut' });
       virus.once('pointerdown', () => {
         if (this.between) return;
+        sfx.zap();
         virus.disableInteractive();
         this.tweens.killTweensOf(virus);
         this.tweens.add({ targets: virus, x: GAME_WIDTH / 2, y: FLOOR_Y - 110, scale: 0, angle: 300, duration: 260 });
@@ -328,6 +336,7 @@ export class CrashScene extends MinigameScene {
     const move = (step: number) => {
       if (this.between) return;
       lane = Phaser.Math.Clamp(lane + step, 0, 2);
+      sfx.whoosh();
       runner.setY(lanes[lane]);
     };
     const keyboard = this.input.keyboard!;
@@ -379,6 +388,7 @@ export class CrashScene extends MinigameScene {
       if (this.between || side !== next) return;
       next = side === 'left' ? 'right' : 'left';
       showNext();
+      sfx.thump();
       folder.setScale(1.3, 1.3 * Phaser.Math.Linear(1, 0.62, ++count / taps));
       if (count < taps) return;
       folder.setTexture('zip', 'folderZipped').setScale(1.3);

@@ -1,5 +1,5 @@
 import * as Phaser from 'phaser';
-import { COLORS, GAME_WIDTH, PIXEL_FONT, hex } from '../config';
+import { COLORS, DOWNLOAD_FILE, GAME_WIDTH, PIXEL_FONT, hex } from '../config';
 import { PROBLEMS, Problem } from '../data/problems';
 import { debugNumber } from '../debug';
 import { CrewMember, Point, carrierJob, sleeperJob, stationJob, wandererJob } from '../factory/crew';
@@ -8,6 +8,7 @@ import { HamsterWheel } from '../objects/HamsterWheel';
 import { LoadingBar } from '../objects/LoadingBar';
 import { NetworkStatus } from '../objects/NetworkStatus';
 import { Worker } from '../objects/Worker';
+import { music, sfx } from '../audio/sound';
 
 const FLOOR_Y = 606; // where the wheel's stand and the generator touch the floor
 const BELT_Y = 428; // top surface of the data bus (the conveyor) painted in the background
@@ -78,7 +79,7 @@ export class FactoryScene extends Phaser.Scene {
     this.bar = new LoadingBar(this, GAME_WIDTH / 2, 88).setScale(0.94);
     this.network = new NetworkStatus(this, 70, 1212, 88);
     this.add
-      .text(GAME_WIDTH / 2, 14, 'DOWNLOADING  favourite_song.mp3', { fontFamily: PIXEL_FONT, fontSize: '10px', color: hex(COLORS.cream), stroke: hex(COLORS.navy), strokeThickness: 4 })
+      .text(GAME_WIDTH / 2, 14, `DOWNLOADING  ${DOWNLOAD_FILE}`, { fontFamily: PIXEL_FONT, fontSize: '10px', color: hex(COLORS.cream), stroke: hex(COLORS.navy), strokeThickness: 4 })
       .setOrigin(0.5);
 
     this.addSign(FAN.x, 366, 'CPU FAN');
@@ -211,6 +212,10 @@ export class FactoryScene extends Phaser.Scene {
     const needsPlayer = !running && !!this.problem?.scene;
 
     // Only some problems cut the power; otherwise the hamster keeps running.
+    // The music is the sound of the line running; when it stops, so does the tune.
+    if (running) music.play('work');
+    else music.stop();
+
     const powered = (this.powered = running || !this.problem?.powerOut);
     this.network.setOnline(running);
     this.wheel.setSpeed(powered ? 1 : 0);
@@ -247,6 +252,7 @@ export class FactoryScene extends Phaser.Scene {
       if (this.running !== running) return; // the state flipped again while walking
       this.reporter.setMood(needsPlayer ? 'panic' : running ? 'happy' : 'tired');
       this.showAlert(needsPlayer);
+      if (needsPlayer) sfx.error();
     });
   }
 
@@ -266,6 +272,7 @@ export class FactoryScene extends Phaser.Scene {
     const problem = this.problem;
     if (this.running || !problem?.scene || this.scene.isActive(problem.scene)) return;
     this.showAlert(false);
+    sfx.click();
     this.cameras.main.fadeOut(200, 22, 30, 60);
     this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => {
       this.scene.launch(problem.scene!, { problemId: problem.id });
@@ -275,6 +282,7 @@ export class FactoryScene extends Phaser.Scene {
 
   private onProblemSolved() {
     this.problemIndex++;
+    sfx.solved();
     // Everyone cheers for a moment, then gets back to work.
     this.showAlert(false);
     for (const { worker } of this.crew) {
@@ -317,6 +325,7 @@ export class FactoryScene extends Phaser.Scene {
   private deliverBlock() {
     const target = this.bar.slotPosition(this.bar.filledSlots);
     this.bar.fillNextSlot();
+    sfx.blip();
     const flyer = this.add.image(BELT_END_X, BELT_Y - 20, 'ui', 'blockGreen').setScale(0.36).setDepth(3000);
     this.tweens.add({ targets: flyer, x: target.x, y: target.y, scale: 0.47, duration: 420, ease: 'Cubic.easeIn', onComplete: () => flyer.destroy() });
   }
@@ -361,6 +370,8 @@ export class FactoryScene extends Phaser.Scene {
   // 100%: no problems left. Everyone celebrates. (The ending cutscene will follow from here.)
   private downloadComplete() {
     this.running = false;
+    music.stop();
+    sfx.complete();
     for (const member of this.crew) {
       member.setRunning(false); // ends whatever their job had planned next
       member.stareAt = undefined;
@@ -370,6 +381,12 @@ export class FactoryScene extends Phaser.Scene {
     this.droppedBlocks = [];
     this.reporter.setMood('cheer');
     this.showBanner('DOWNLOAD COMPLETE!');
+
+    // After a moment to enjoy it, back out to the real world for the ending.
+    this.time.delayedCall(2600, () => {
+      this.cameras.main.fadeOut(450, 255, 255, 255);
+      this.cameras.main.once(Phaser.Cameras.Scene2D.Events.FADE_OUT_COMPLETE, () => this.scene.start('Ending'));
+    });
   }
 
   private showBanner(message: string) {

@@ -2,6 +2,7 @@ import * as Phaser from 'phaser';
 import { COLORS, GAME_HEIGHT, GAME_WIDTH } from '../config';
 import { Worker } from '../objects/Worker';
 import { MinigameScene } from './MinigameScene';
+import { sfx } from '../audio/sound';
 
 const COLS = 5;
 const ROWS = 3;
@@ -190,6 +191,7 @@ export class CircuitScene extends MinigameScene {
     this.tweens.killTweensOf(tile.view);
     tile.view.setScale(1).setAngle(tile.turns * 90);
     tile.turns++;
+    sfx.turn();
     this.tweens.add({ targets: tile.view, angle: '+=90', duration: 110, ease: 'Quad.easeOut' });
 
     this.refreshPower();

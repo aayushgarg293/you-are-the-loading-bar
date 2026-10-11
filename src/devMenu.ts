@@ -20,7 +20,7 @@ export function addDevMenu() {
     const before = Math.max(0, problem.stallAt - 2); // close enough to reach the stall in a second or two
     return `<div>${i + 1}. ${problem.error?.title ?? problem.id} — ${link('play', `?scene=${problem.scene}`)} · ${link('from the main screen', `?progress=${before}`)}</div>`;
   });
-  list.innerHTML = [`<div>${link('Whole game from the start', '')}</div>`, ...rows, `<div>${link('Worker test bench', '?scene=workshop')}</div>`].join('');
+  list.innerHTML = [`<div>${link('Whole game from the start', '')}</div>`, ...rows, `<div>${link('Worker test bench', '?scene=workshop')}</div>`, `<div>${link('Title screen', '?scene=title')} · ${link('Intro cutscene', '?scene=intro')}</div>`, `<div>${link('Ending cutscene', '?scene=ending')} · ${link('without YouTube', '?scene=ending&novideo=1')} · ${link('end screen', '?scene=end')}</div>`, `<div>${link('Stick figure room test', '?scene=room')}</div>`].join('');
 
   const toggle = () => (list.style.display = list.style.display === 'none' ? 'block' : 'none');
   tab.addEventListener('click', toggle);
