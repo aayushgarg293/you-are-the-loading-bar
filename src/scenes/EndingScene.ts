@@ -2,26 +2,27 @@ import * as Phaser from 'phaser';
 import { COLORS, GAME_HEIGHT, GAME_WIDTH, PIXEL_FONT, hex } from '../config';
 import { BigFace, drawShoulderShot, drawWallBackdrop } from '../cutscene/closeups';
 import { DESK, INK, SCREEN_ON, drawDeskSet } from '../cutscene/sets';
-import { VideoHandle, playYouTube, preloadYouTube } from '../cutscene/video';
 import { debugText } from '../debug';
 import { StickFigure } from '../objects/StickFigure';
 import { Worker } from '../objects/Worker';
-import { music, sfx } from '../audio/sound';
+import { isMuted, music, sfx } from '../audio/sound';
 
 type Moment = Phaser.Types.Time.TimelineEventConfig;
 
 // A sound cue: one moment that just plays a sound.
 const cue = (at: number, play: () => void): Moment => ({ at, run: () => play() });
 
-const RICKROLL = 'dQw4w9WgXcQ'; // the official "Never Gonna Give You Up" video on YouTube
+// Five seconds of the real video, cut to the monitor's shape (600 x 400).
+const CLIP = 'rickroll';
+const WAIT_FOR_PLAYBACK = 3000; // milliseconds before giving up on the clip and showing our own version
 
 // The ending cutscene:
 //   1 the camera pulls back out of the monitor: 100%, download complete
 //   2 he notices, leaps out of the chair, and we cut to his delighted face
 //   3 over his shoulder: the file is ready. The PLAYER clicks OPEN.
-//   4 it is not the song. A real YouTube video plays on his monitor; if that
-//     cannot start (no internet, blocked, an advert first), the crew from
-//     inside the computer do the dance themselves instead
+//   4 it is not the song. Five seconds of the real video play on his monitor;
+//     if the clip cannot start, the crew from inside the computer do the
+//     dance themselves instead
 //   5 his face: stunned, then a shout that is cut off mid-word
 //   6 black, and on to the end screen
 //
@@ -30,20 +31,25 @@ const RICKROLL = 'dQw4w9WgXcQ'; // the official "Never Gonna Give You Up" video 
 // matters: browsers only let a page start sound in response to one.
 export class EndingScene extends Phaser.Scene {
   private shots: Phaser.GameObjects.Container[] = [];
-  private video?: VideoHandle;
+  private video?: Phaser.GameObjects.Video;
 
   constructor() {
     super('Ending');
+  }
+
+  preload() {
+    // Phaser only notes the address here; the file starts downloading when the
+    // video object is made in openFileShot, a few seconds before it is needed.
+    this.load.video(CLIP, 'assets/video/rickroll.mp4');
   }
 
   create() {
     this.shots = [];
     this.video = undefined;
     this.cameras.main.setBackgroundColor(0x000000);
-    preloadYouTube();
-    // If the scene ends for any reason, the video must not be left behind on the page.
+    // If the scene ends for any reason, the clip must not keep playing.
     this.events.once(Phaser.Scenes.Events.SHUTDOWN, () => {
-      this.video?.destroy();
+      this.stopVideo();
       music.stop();
     });
 
@@ -124,24 +130,41 @@ export class EndingScene extends Phaser.Scene {
       .setOrigin(0.5)
       .setVisible(false);
     const dance = this.buildCrewDance(view.screenRect);
-    const shot = this.shot([view.backdrop, view.screen, view.popup, prompt, dance, view.cursor, view.head]);
+    // Made now, hidden, so the browser fetches the clip while the player reads the screen.
+    const clip = this.add.video(view.screenRect.x, view.screenRect.y, CLIP).setOrigin(0).setVisible(false);
+    this.video = clip;
+    const shot = this.shot([view.backdrop, view.screen, view.popup, prompt, dance, clip, view.cursor, view.head]);
 
     const open = () => {
       sfx.click();
       prompt.destroy();
       view.popup.setVisible(false);
       view.cursor.setVisible(false);
-      const startSecondHalf = () => this.add.timeline(this.reactionMoments(face, faceShot)).play();
-      const playOurs = () => {
-        this.video?.destroy();
-        this.video = undefined;
+
+      // Whichever happens first wins: the clip starts, or it fails / takes too long.
+      let decided = false;
+      const once = (then: () => void) => () => {
+        if (decided) return;
+        decided = true;
+        giveUp.remove();
+        then();
+      };
+      const startSecondHalf = once(() => this.add.timeline(this.reactionMoments(face, faceShot)).play());
+      const playOurs = once(() => {
+        this.stopVideo();
         dance.setVisible(true);
         music.play('dance');
-        startSecondHalf();
-      };
-      // ?novideo=1 is a test switch that skips YouTube and shows our own version.
-      if (debugText('novideo')) playOurs();
-      else this.video = playYouTube(this, view.screenRect, RICKROLL, startSecondHalf, playOurs);
+        this.add.timeline(this.reactionMoments(face, faceShot)).play();
+      });
+      const giveUp = this.time.delayedCall(WAIT_FOR_PLAYBACK, playOurs);
+
+      // ?novideo=1 is a test switch that skips the clip and shows our own version.
+      if (debugText('novideo')) return playOurs();
+      clip.once(Phaser.GameObjects.Events.VIDEO_PLAY, startSecondHalf); // the first frame is on screen
+      clip.once(Phaser.GameObjects.Events.VIDEO_ERROR, playOurs);
+      clip.once(Phaser.GameObjects.Events.VIDEO_UNSUPPORTED, playOurs);
+      clip.once(Phaser.GameObjects.Events.VIDEO_LOCKED, playOurs);
+      clip.setMute(isMuted()).setVisible(true).play();
     };
 
     return [
@@ -182,6 +205,12 @@ export class EndingScene extends Phaser.Scene {
     return this.add.container(0, 0, [stage, spotlight, title, dancers[0], dancers[2], dancers[1]]).setVisible(false);
   }
 
+  private stopVideo() {
+    this.video?.stop();
+    this.video?.destroy();
+    this.video = undefined;
+  }
+
   // ---- 5 and 6: the reaction, cut short ----
 
   private reactionMoments(face: BigFace, faceShot: Phaser.GameObjects.Container): Moment[] {
@@ -192,23 +221,24 @@ export class EndingScene extends Phaser.Scene {
     faceShot.add(shout);
     const camera = this.cameras.main;
 
+    // The clip is five seconds long, and this all fits inside it.
     return [
-      cue(4200, sfx.drum),
-      cue(5400, sfx.drum),
-      cue(6400, () => sfx.shout(0.65)), // 0.65 s later the cut to black lands
+      cue(3000, sfx.drum),
+      cue(3800, sfx.drum),
+      cue(4350, () => sfx.shout(0.65)), // 0.65 s later the cut to black lands
       // Let the video play just long enough to sink in, then cut to his face.
       {
-        at: 4200,
+        at: 3000,
         run: () => {
-          this.video?.hide(); // the music carries on over his face
+          // Cutting away hides the clip with its shot; the music carries on over his face.
           face.setExpression('stunned').setY(360);
           this.cutTo(faceShot, { x: 600, y: 350 }, 1.2);
         },
       },
-      { at: 5400, run: () => this.cutTo(faceShot, { x: 620, y: 340 }, 1.6) },
+      { at: 3800, run: () => this.cutTo(faceShot, { x: 620, y: 340 }, 1.6) },
       {
         // The shout builds: N... NO... NOO...
-        at: 6400,
+        at: 4350,
         run: () => {
           face.setExpression('shout');
           this.tweens.add({ targets: face, mouthOpen: 1, duration: 500 });
@@ -219,15 +249,14 @@ export class EndingScene extends Phaser.Scene {
       },
       {
         // ... and is chopped off. Sudden black and silence is the punchline.
-        at: 7050,
+        at: 5000,
         run: () => {
-          this.video?.destroy();
-          this.video = undefined;
+          this.stopVideo();
           music.stop();
           this.cutTo(null);
         },
       },
-      { at: 8000, run: () => this.scene.start('EndScreen') },
+      { at: 5950, run: () => this.scene.start('EndScreen') },
     ];
   }
 }

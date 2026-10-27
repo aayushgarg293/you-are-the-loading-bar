@@ -86,7 +86,7 @@ Every push to `main` is built and published to GitHub Pages by [`.github/workflo
 
 - Designed by Aayush Garg. The code was written in conversation with [Claude Code](https://claude.com/claude-code).
 - The worker, hamster, motherboard and prop art was generated with AI image tools from written prompts, then cut and packed by the script in this repository. The stick-figure cartoon and all interface elements are drawn in code.
-- The ending plays a video through YouTube's own embedded player. No music or footage is included in this repository. If the video cannot play, the game shows its own version instead.
+- The ending plays a five-second excerpt of Rick Astley's "Never Gonna Give You Up" video as a parody. All rights to the song and video belong to their owners. If the clip cannot play, the game shows its own version instead.
 - The font is [Press Start 2P](https://fonts.google.com/specimen/Press+Start+2P).
 
 ![The end screen](docs/screenshots/end-screen.jpg)

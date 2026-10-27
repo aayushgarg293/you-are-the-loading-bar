@@ -4,6 +4,7 @@ import { sfx } from '../audio/sound';
 
 const STARS = 5;
 const REAL_SONG = 'https://www.youtube.com/watch?v=dQw4w9WgXcQ';
+const COFFEE = 'https://www.buymeacoffee.com/aayushgarg';
 
 // The last screen: thanks, a star rating, and buttons to share or play again.
 // The rating is only remembered in this browser; nothing is sent anywhere.
@@ -41,6 +42,7 @@ export class EndScreenScene extends Phaser.Scene {
     this.addButton(GAME_WIDTH / 2 - 290, 580, 'PLAY AGAIN', COLORS.green, () => this.scene.start('Title'));
     this.addButton(GAME_WIDTH / 2, 580, 'SHARE', COLORS.yellow, (label) => this.share(label));
     this.addButton(GAME_WIDTH / 2 + 290, 580, 'THE REAL SONG', COLORS.cream, () => window.open(REAL_SONG, '_blank', 'noopener'));
+    this.addCoffeeButton(GAME_WIDTH / 2, 668);
   }
 
   // ---- Rating ----
@@ -85,6 +87,23 @@ export class EndScreenScene extends Phaser.Scene {
       sfx.click();
       onClick(caption);
     });
+  }
+
+  // Buy Me a Coffee's own button picture, as a real link laid over the canvas.
+  // Phaser keeps it lined up and scaled with the game, and removes it when the
+  // scene ends. Its size is in game pixels, like everything else here.
+  private addCoffeeButton(x: number, y: number) {
+    const link = document.createElement('a');
+    link.href = COFFEE;
+    link.target = '_blank';
+    link.rel = 'noopener';
+    const image = document.createElement('img');
+    image.src = 'https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png';
+    image.alt = 'Buy Me a Coffee';
+    image.style.cssText = 'height: 60px; width: 217px; display: block;';
+    link.append(image);
+    link.addEventListener('click', () => sfx.click());
+    this.add.dom(x, y, link);
   }
 
   // Copies the game's address so it can be pasted to a friend.

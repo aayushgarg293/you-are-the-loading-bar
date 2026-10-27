@@ -40,6 +40,11 @@ export function toggleMute() {
   return muted;
 }
 
+// For sound that does not go through this file (the ending's video clip).
+export function isMuted() {
+  return muted;
+}
+
 // Sound may only be scheduled once the context is running, otherwise
 // everything asked for before the first click would play at once after it.
 const ready = () => context !== undefined && master !== undefined && context.state === 'running';

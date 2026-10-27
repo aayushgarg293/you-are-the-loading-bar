@@ -32,6 +32,8 @@ document.fonts.load(`16px ${PIXEL_FONT}`).finally(() => {
       mode: Phaser.Scale.FIT,
       autoCenter: Phaser.Scale.CENTER_BOTH,
     },
+    // Lets a scene put real HTML on top of the canvas (the end screen's Buy Me a Coffee link).
+    dom: { createContainer: true },
     // The first scene in the list starts automatically.
     scene: [PreloadScene, TitleScene, FactoryScene, FeedHamsterScene, WakeWorkersScene, CircuitScene, CorruptedBlocksScene, PacketDeliveryScene, CpuCoolingScene, ZipFileScene, CrashScene, RoomScene, IntroScene, EndingScene, EndScreenScene, WorkshopScene],
   });
