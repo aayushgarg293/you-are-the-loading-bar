@@ -1,6 +1,7 @@
 import * as Phaser from 'phaser';
 import { music, sfx, unlockAudio } from '../audio/sound';
 import { COLORS, GAME_WIDTH, PIXEL_FONT, hex } from '../config';
+import { addCoffeeButton } from '../objects/coffeeButton';
 import { HamsterWheel } from '../objects/HamsterWheel';
 import { LoadingBar } from '../objects/LoadingBar';
 import { Worker } from '../objects/Worker';
@@ -45,6 +46,7 @@ export class TitleScene extends Phaser.Scene {
 
     text(GAME_WIDTH / 2, 600, 'A download is stuck. The little people inside the computer need a boss.', 12, COLORS.navy);
     text(GAME_WIDTH / 2, 668, 'best with sound on   -   M mutes   -   made for desktop', 10, 0x6d7692);
+    addCoffeeButton(this, 130, 668, 0.8);
   }
 
   // The bar fills block by block to 99%, hangs there, and starts again.
